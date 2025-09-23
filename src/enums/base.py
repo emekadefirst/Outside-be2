@@ -51,7 +51,7 @@ class AudioExtension(str, Enum):
 
 class Action(str, Enum):
     READ = "read"
-    WRITE = "write"
+    CREATE = "create"
     UPDATE = "update"
     DELETE = "delete"
 

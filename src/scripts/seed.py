@@ -3,7 +3,7 @@ from tortoise import Tortoise
 from src.core.database import TORTOISE_ORM
 from src.core.models import User, Permission, PermissionGroup
 from src.enums.base import Action, AppModule
-# from src.utilities.crypto_func import set_password
+
 
 
 async def seed_admin_user():
