@@ -7,11 +7,11 @@ from src.enums.base import Action, AppModule
 
 
 async def seed_admin_user():
-    admin_email = "emekadefirst@gmail.com"
-    admin_password = "AdminLog25$$"
-    first_name = "Victor"
-    last_name = "Chibuogwu"
-    phone_number = "08148374084"
+    admin_email = "sundaycomfortngozi@gmail.com"
+    admin_password = "Comzi$$"
+    first_name = "Comzi"
+    last_name = "Blessing"
+    phone_number = "08025074700"
 
     existing = await User.filter(email=admin_email).first()
     if existing:

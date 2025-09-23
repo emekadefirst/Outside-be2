@@ -60,6 +60,7 @@ class Action(str, Enum):
 class Resource(str, Enum):
     FILE = "file"
     USER = "user"
+    EVENT = "event"
 
 
 
