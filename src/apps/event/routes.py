@@ -17,3 +17,15 @@ event_router = build_router(path="events", tags=["Event"])
 @event_router.get("/", status_code=200)
 async def get_all():
     return await EventService.list()
+
+
+@event_router.post(
+    "/",
+    status_code=201,
+    dependencies=[Depends(AuthPermissionService.permission_required(
+        action=Action.CREATE,
+        module=AppModule.EVENT
+    ))]
+)
+async def create(dto: EventSchema):
+    return await EventService.create(dto=dto)
