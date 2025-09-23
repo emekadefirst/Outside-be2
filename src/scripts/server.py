@@ -50,7 +50,10 @@ app.add_middleware(
         'http://localhost:5173',
         'http://127.0.0.1:5173',
         'http://localhost:5174',
+        'http://127.0.0.1:5500',
         'https://www.outsidetickets.com',
+        'https://www.outsidetickets.com',
+        'https://outsidetickets.com'/
     ],
     allow_credentials=True,
     allow_methods=["*"],
