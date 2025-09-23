@@ -25,6 +25,6 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 ENV PATH="/app/.venv/bin:$PATH"
 
 ENTRYPOINT []
-EXPOSE 8000
 
-CMD ["uvicorn", "src.server:app", "--host", "0.0.0.0", "--port", "800"]
+EXPOSE 8080
+CMD ["gunicorn", "src.server:app", "--workers", "4", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8080"]
