@@ -1,0 +1,1 @@
+from src.apps.event.models import Event
