@@ -51,6 +51,7 @@ class Profile(BaseModel):
 
 
 class UserResponseDto(BaseModel):
+    id: uuid.uuid4
     first_name: Optional[str] = Field(None, max_length=55)
     last_name: Optional[str] = Field(None, max_length=55)
     phone_number: Optional[str] = Field(None, max_length=20)
