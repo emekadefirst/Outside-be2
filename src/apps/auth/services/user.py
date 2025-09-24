@@ -29,7 +29,7 @@ class AuthService:
         user = await cls.model.create(**dto.dict())
         # Optional background task
         # task.add_task(send_welcome_email, user.email)
-        return cls.jwt.generate_token({"user_id": str(user.id)})
+        return cls.jwt.generate_token(str(user.id))
 
     @classmethod
     async def login(cls, dto: LoginDto):
@@ -37,7 +37,7 @@ class AuthService:
         hsh = verify_password(user.password, dto.password)
         if not hsh:
             raise cls.error.get(400)
-        return cls.jwt.generate_token({"user_id": str(user.id)})
+        return cls.jwt.generate_token(str(user.id))
 
     @classmethod
     async def stats(cls):

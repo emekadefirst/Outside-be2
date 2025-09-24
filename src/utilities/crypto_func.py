@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 from fastapi import Depends, status
 from jwt import ExpiredSignatureError, InvalidTokenError, decode
 from src.apps.auth.models import User
+from typing import Dict
 from src.utilities.errorHandler import ErrorMessage
 from src.config.env import (
     JWT_ACCESS_EXPIRY,
@@ -18,7 +19,7 @@ error = ErrorMessage(User)
 
 class JWTService:
     @staticmethod
-    def generate_token(subject: dict) -> dict:
+    def generate_token(subject: str) -> dict:
         now = datetime.now(timezone.utc)
 
         access_exp = now + timedelta(minutes=JWT_ACCESS_EXPIRY)
@@ -55,12 +56,17 @@ class JWTService:
             return None
 
     @staticmethod
-    def refresh_token(refresh_token: str) -> dict:
+    def refresh_token(refresh_token: str) -> Dict[str, str]:
+        """
+        Validates refresh token and issues a new pair of tokens.
+        """
         payload = JWTService.decode_token(refresh_token)
+
         if payload.get("type") != "refresh":
             raise error.unauthorized("Invalid token type")
-        subject = payload.get("sub")
-        return JWTService.generate_token(subject)
+
+        user_id = payload.get("sub")   # sub is just the user_id string
+        return JWTService.generate_token(user_id)
 
     @staticmethod
     def get_subject(token: str) -> str:
