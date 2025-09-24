@@ -55,7 +55,7 @@ async def update_user(user_id: str, dto: Profile):
 
 @user_router.post("/refresh", status_code=200)
 async def refresh_token(dto: RefreshToken):
-    return await user.refresh_token(refresh_token=dto.token)
+    return user.refresh_token(refresh_token=dto.token)
 
 @user_router.delete("/{user_id}", status_code=204)
 async def update_user(user_id: str):

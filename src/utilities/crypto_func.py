@@ -19,13 +19,11 @@ error = ErrorMessage(User)
 
 class JWTService:
     @staticmethod
-    def generate_token(subject: str) -> dict:
+    def generate_token(user_id: str) -> dict:
         now = datetime.now(timezone.utc)
 
         access_exp = now + timedelta(minutes=JWT_ACCESS_EXPIRY)
         refresh_exp = now + timedelta(days=JWT_REFRESH_EXPIRY)
-
-        user_id = subject.get("user_id")  
 
         access_payload = {
             "sub": str(user_id),
