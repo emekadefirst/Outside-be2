@@ -19,28 +19,25 @@ class FileService:
         return await cls.model.create(**kwargs)
 
     @classmethod
-    async def upload(cls, files: Optional[List[UploadFile]], user_id: Optional[str] = None) -> List[File]:
-        if not files:
+    async def upload(cls, file: Optional[UploadFile], user_id: Optional[str] = None) -> List[File]:
+        if not file:
             raise cls.error.get(400, "No files provided")
-        saved_files = []
-        for file in files:
-            url = await cls.bucket.upload(file)
-            filename, ext = os.path.splitext(file.filename)
-            ext = ext.replace(".", "").lower()
-            mime_type = mimetypes.guess_type(file.filename)[0]
-            file_data = {
-                "name": filename,
-                "slug": filename.replace(" ", "_").lower(),
-                "extension": ext,
-                "mime_type": mime_type,
-                "url": url,
-                "size": file.size,
-                "user_id": user_id,
-                "type": cls._get_file_type(ext),
-            }
-            saved_file = await cls.save(**file_data)
-            saved_files.append(saved_file)
-        return saved_files
+        url = await cls.bucket.upload(file)
+        filename, ext = os.path.splitext(file.filename)
+        ext = ext.replace(".", "").lower()
+        mime_type = mimetypes.guess_type(file.filename)[0]
+        file_data = {
+            "name": filename,
+            "slug": filename.replace(" ", "_").lower(),
+            "extension": ext,
+            "mime_type": mime_type,
+            "url": url,
+            "size": file.size,
+            "user_id": user_id,
+            "type": cls._get_file_type(ext),
+        }
+        saved_file = await cls.save(**file_data)
+        return saved_file
 
     @staticmethod
     def _get_file_type(ext: str) -> str:
