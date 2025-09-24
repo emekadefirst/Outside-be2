@@ -1,5 +1,5 @@
 import datetime
-import uuid  
+from uuid import UUID
 from typing import Annotated, Optional
 from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
@@ -51,7 +51,7 @@ class Profile(BaseModel):
 
 
 class UserResponseDto(BaseModel):
-    id: uuid.uuid4
+    id: UUID
     first_name: Optional[str] = Field(None, max_length=55)
     last_name: Optional[str] = Field(None, max_length=55)
     phone_number: Optional[str] = Field(None, max_length=20)
